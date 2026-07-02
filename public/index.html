@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Profile Analyzer | Dashboard</title>
+  <meta name="description" content="Analyze GitHub profile metrics, repository counts, language distribution, and store insights in MySQL.">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background decorative glows -->
+  <div class="glow-bg glow-purple"></div>
+  <div class="glow-bg glow-blue"></div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-logo">
+        <i class="fa-brands fa-github logo-icon"></i>
+        <h1>GitHub Profile <span>Analyzer</span></h1>
+      </div>
+      <p class="header-subtitle">Extract public insights and persist analysis records inside MySQL</p>
+    </header>
+
+    <!-- Search/Analyze Section -->
+    <section class="analyzer-section">
+      <div class="glass-card search-card">
+        <h2>Analyze New Profile</h2>
+        <p>Enter any public GitHub username to fetch profile statistics, calculate language usage, total stars, forks, and save insights to the database.</p>
+        
+        <form id="analyze-form" class="search-form">
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user input-icon"></i>
+            <input type="text" id="username-input" placeholder="e.g. octocat, torvalds, gaearon" required autocomplete="off">
+          </div>
+          <button type="submit" id="submit-btn">
+            <span id="btn-text">Analyze Profile</span>
+            <span id="btn-spinner" class="spinner hidden"></span>
+          </button>
+        </form>
+        <div id="message-container" class="message-container"></div>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="main-content">
+      <div class="content-header">
+        <div class="content-title">
+          <h2>Stored Analyses</h2>
+          <span id="profiles-count" class="badge">0 Profiles</span>
+        </div>
+        <button id="refresh-btn" class="btn-secondary" title="Refresh local records">
+          <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+      </div>
+
+      <!-- Profiles Grid -->
+      <div id="profiles-grid" class="profiles-grid">
+        <!-- Skeleton cards / Loader will show here, then profiles list -->
+        <div class="empty-state">
+          <i class="fa-solid fa-database empty-icon"></i>
+          <p>No profiles analyzed yet. Use the search bar above to fetch your first GitHub profile.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Detailed Insights Modal -->
+    <div id="insights-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content glass-card">
+        <button id="close-modal-btn" class="close-btn" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        
+        <div id="modal-body-content">
+          <!-- Modal content injected by JS -->
+        </div>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <p>GitHub Profile Analyzer &bull; Built with Node.js, Express, & MySQL</p>
+    </footer>
+  </div>
+
+  <!-- Client-side Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
