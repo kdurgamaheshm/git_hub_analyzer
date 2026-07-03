@@ -12,6 +12,22 @@ export const analyzeGitHubProfile = async (username) => {
     throw new Error('Username is required');
   }
 
+  // Automatically extract username if the user pasted a full GitHub URL
+  let cleanUsername = username.trim();
+  if (cleanUsername.toLowerCase().includes('github.com/')) {
+    const parts = cleanUsername.split('github.com/');
+    if (parts[1]) {
+      // Extract the username segment, ignoring trailing slashes or queries
+      cleanUsername = parts[1].split('/')[0].split('?')[0];
+    }
+  }
+  // Strip any leading/trailing slashes
+  cleanUsername = cleanUsername.replace(/^\/+|\/+$/g, '').trim();
+
+  if (!cleanUsername) {
+    throw new Error('Invalid GitHub username or URL');
+  }
+
   const headers = {
     'User-Agent': 'GitHub-Profile-Analyzer-API',
     'Accept': 'application/vnd.github.v3+json',
@@ -23,7 +39,7 @@ export const analyzeGitHubProfile = async (username) => {
   }
 
   // 1. Fetch user profile data
-  const profileUrl = `https://api.github.com/users/${encodeURIComponent(username)}`;
+  const profileUrl = `https://api.github.com/users/${encodeURIComponent(cleanUsername)}`;
   const profileResponse = await fetch(profileUrl, { headers });
 
   if (profileResponse.status === 404) {
@@ -38,7 +54,7 @@ export const analyzeGitHubProfile = async (username) => {
   const profileData = await profileResponse.json();
 
   // 2. Fetch user repositories (Limit to 100 for standard analysis)
-  const reposUrl = `https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=100`;
+  const reposUrl = `https://api.github.com/users/${encodeURIComponent(cleanUsername)}/repos?per_page=100`;
   const reposResponse = await fetch(reposUrl, { headers });
 
   let reposData = [];
