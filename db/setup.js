@@ -60,10 +60,20 @@ async function setup() {
 
     console.log(`Executing DDL queries (${queries.length} statements)...`);
     for (const query of queries) {
-      // Skip the database creation and selection in SQL, as we handle it programmatically
-      if (query.toUpperCase().startsWith('CREATE DATABASE') || query.toUpperCase().startsWith('USE')) {
+      // Clean query by removing SQL comments and leading/trailing whitespace
+      const cleanQuery = query
+        .replace(/--.*$/gm, '') // Remove single-line comments (-- ...)
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments (/* ... */)
+        .trim();
+
+      if (!cleanQuery) continue; // Skip empty query statements
+
+      // Skip database creation and selection in SQL, as we connect to the database directly
+      if (cleanQuery.toUpperCase().startsWith('CREATE DATABASE') || cleanQuery.toUpperCase().startsWith('USE')) {
+        console.log(`Skipping DB-level statement: "${cleanQuery.substring(0, 30)}..."`);
         continue;
       }
+      
       await connection.query(query);
     }
 
