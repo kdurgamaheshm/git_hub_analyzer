@@ -20,16 +20,33 @@ async function setup() {
   
   let connection;
   try {
-    connection = await mysql.createConnection({
-      host,
-      user,
-      password,
-      port
-    });
-
-    console.log(`Ensuring database '${dbName}' exists...`);
-    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
-    await connection.query(`USE \`${dbName}\``);
+    // Try connecting directly to the database first (supports shared hosts like Clever Cloud/Aiven)
+    try {
+      connection = await mysql.createConnection({
+        host,
+        user,
+        password,
+        port,
+        database: dbName
+      });
+      console.log(`Connected directly to existing database '${dbName}'.`);
+    } catch (dbError) {
+      // If error is that the database doesn't exist, try connecting without DB name and creating it (for local dev)
+      if (dbError.code === 'ER_BAD_DB_ERROR' || dbError.errno === 1049) {
+        console.log(`Database '${dbName}' not found. Attempting to connect to host to create it...`);
+        connection = await mysql.createConnection({
+          host,
+          user,
+          password,
+          port
+        });
+        console.log(`Creating database '${dbName}'...`);
+        await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
+        await connection.query(`USE \`${dbName}\``);
+      } else {
+        throw dbError; // Rethrow other errors (authentication, bad hostname, etc.)
+      }
+    }
 
     console.log('Reading schema.sql...');
     const schemaPath = path.join(__dirname, 'schema.sql');
