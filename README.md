@@ -1,8 +1,9 @@
 # GitHub Profile Analyzer
 
-### 🔗 Submission Links
-* **GitHub Repository**: [https://github.com/kdurgamaheshm/git_hub_analyzer](https://github.com/kdurgamaheshm/git_hub_analyzer)
-* **Live Deployed URL**: `[INSERT YOUR DEPLOYED RENDER URL HERE]` *(e.g., https://github-profile-analyzer.onrender.com)*
+### 🔗 Deliverables & Submission Links
+* **Deliverable 1 (GitHub Repository)**: [https://github.com/kdurgamaheshm/EduCase](https://github.com/kdurgamaheshm/EduCase)
+* **Deliverable 2 (Live Deployed App & API)**: [https://githubanalyzer-adhn.onrender.com/](https://githubanalyzer-adhn.onrender.com/)
+* **Deliverable 3 (Shared Postman Collection)**: [https://drive.google.com/file/d/1XeXqcUB86fjT0wU40AiuQaKg0dBspkgn/view?usp=sharing](https://drive.google.com/file/d/1XeXqcUB86fjT0wU40AiuQaKg0dBspkgn/view?usp=sharing)
 
 ---
 
