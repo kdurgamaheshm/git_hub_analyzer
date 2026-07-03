@@ -1,4 +1,10 @@
-# GitHub Profile Analyzer API
+# GitHub Profile Analyzer
+
+### 🔗 Submission Links
+* **GitHub Repository**: [https://github.com/kdurgamaheshm/git_hub_analyzer](https://github.com/kdurgamaheshm/git_hub_analyzer)
+* **Live Deployed URL**: `[INSERT YOUR DEPLOYED RENDER URL HERE]` *(e.g., https://github-profile-analyzer.onrender.com)*
+
+---
 
 A robust Node.js and Express.js REST API that integrates with the public GitHub API to analyze users' profiles and repository statistics. It calculates advanced insights (such as language distributions, total stars, total forks, and most-starred repositories) and persists the data in a MySQL database.
 
