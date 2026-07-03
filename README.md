@@ -210,3 +210,17 @@ All routes are prefixed with `/api`.
   "message": "Profile analysis for 'octocat' successfully deleted from local storage."
 }
 ```
+
+---
+
+## 📮 Postman Collection
+
+A pre-configured Postman Collection is included at the root of this project: **[`postman_collection.json`](file:///s:/eduCase/postman_collection.json)**.
+
+### How to use:
+1. Open Postman.
+2. Click **Import** in the top-left corner.
+3. Drag and drop the `postman_collection.json` file.
+4. Set the collection variable `baseUrl`:
+   * By default, it is set to `http://localhost:5000` for local testing.
+   * To test your live API, edit the collection variables in Postman and replace `baseUrl` with your deployed Render URL (e.g., `https://your-app-name.onrender.com`).
